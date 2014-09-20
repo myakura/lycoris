@@ -8,6 +8,11 @@ dialog.querySelector('button').onclick = function (e) {
   e.preventDefault()
   dialog.close()
 }
+dialog.onclick = function (e) {
+  if (dialog.open) {
+    dialog.close()
+  }
+}
 dialog.oncancel = function () {
   dialog.close()
 }
@@ -36,6 +41,8 @@ imageAttachments.forEach(function (attachment) {
     var dialogImage = dialog.querySelector('img')
     dialogImage.src = a.href
     dialogImage.alt = name
-    dialog.showModal()
+    dialogImage.onload = function () {
+      dialog.showModal()
+    }
   })
 })
