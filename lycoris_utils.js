@@ -7,7 +7,15 @@ var request = function request (url, options) {
     xhr.responseType = !!options && options.type || ''
     xhr.onload = function () {
       if (xhr.status === 200) {
-        resolve(xhr.response)
+        var rawHeaders = xhr.getAllResponseHeaders().trim()
+        var headersArray = rawHeaders.split('\r\n').map(function (line) {
+          return /(.+): (.+)/.exec(line).slice(1)
+        })
+        var response = {
+          body: xhr.response,
+          headers: new Map(headersArray)
+        }
+        resolve(response)
       }
       else {
         reject(new Error(xhr.statusText))
