@@ -64,6 +64,8 @@ imageAttachments.forEach(function (attachment) {
   var viewElem = attachment.querySelector('a[target]')
   var thumbnailElem = attachment.querySelector('[colspan="3"] > a')
 
+  nameElem.classList.add('lycoris-filename')
+
   var fileName = nameElem.textContent.trim()
 
   if (!! viewElem && !!thumbnailElem) {
@@ -90,5 +92,4 @@ imageAttachments.forEach(function (attachment) {
       })
     }
   }
-
 })

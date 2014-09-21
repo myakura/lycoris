@@ -3,3 +3,12 @@
   border-radius: 3px;
   box-shadow: 0 0 15px #666;
 }
+
+.lycoris-filename {
+  display: inline-block;
+  cursor: pointer;
+  color: #00c;
+  font-size: 120%;
+  font-weight: normal;
+  padding: .3em 0 .4em;
+}
