@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Lycoris",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Enhance code.google.com.",
   "permissions": [
     "*://code.google.com/*",
@@ -17,6 +17,12 @@
       "css": [
         "lycoris_preview.css"
       ]
+    },
+    {
+      "matches": [
+        "*://code.google.com/p/*/source/detail*"
+      ],
+      "js": [ "lycoris_title.js"]
     }
   ]
 }
