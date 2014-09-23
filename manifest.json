@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Lycoris",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Enhance code.google.com.",
   "permissions": [
     "*://code.google.com/*",
@@ -9,7 +9,7 @@
   ],
   "content_scripts": [
     {
-      "matches": ["*://code.google.com/p/*/issues*"],
+      "matches": ["*://code.google.com/*p/*/issues*"],
       "js": [
         "lycoris_utils.js",
         "lycoris_preview.js"
