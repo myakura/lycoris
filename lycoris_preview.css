@@ -4,6 +4,12 @@
   box-shadow: 0 0 15px #666;
 }
 
+.lycoris-dialog img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
 .lycoris-filename {
   display: inline-block;
   cursor: pointer;
