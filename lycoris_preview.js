@@ -1,11 +1,11 @@
 'use strict'
 
-var getFileExtension = function (fileName) {
+const getFileExtension = function (fileName) {
   return (/.*\.(.+)$/.exec(fileName) || [])[1]
 }
 
-var getImageMIME = function (fileName) {
-  var imageMIMEs = new Map([
+const getImageMIME = function (fileName) {
+  const imageMIMEs = new Map([
     ['gif', 'image/gif'],
     ['png', 'image/png'],
     ['jpg', 'image/jpeg'],
@@ -15,19 +15,16 @@ var getImageMIME = function (fileName) {
     ['svg', 'image/svg+xml'],
     ['svgz', 'image/svg+xml'],
   ])
-  var extension = ('' + getFileExtension(fileName)).toLowerCase()
+  const extension = `${getFileExtension(fileName)}`.toLowerCase()
   return imageMIMEs.get(extension)
 }
 
 //set up dialog
-var dialog = document.createElement('dialog')
+const dialog = document.createElement('dialog')
 dialog.classList.add('lycoris-dialog')
-dialog.innerHTML = '<img><br><button>Close</button>'
-dialog.querySelector('button').onclick = function (e) {
-  e.preventDefault()
-  dialog.close()
-}
-dialog.onclick = function (e) {
+dialog.appendChild(new Image())
+
+dialog.onclick = function () {
   if (dialog.open) {
     dialog.close()
   }
@@ -36,14 +33,14 @@ dialog.oncancel = function () {
   dialog.close()
 }
 dialog.onclose = function () {
-  var dialogImage = dialog.querySelector('img')
+  let dialogImage = dialog.querySelector('img')
   dialogImage.src = ''
   dialogImage.alt = ''
 }
 document.body.appendChild(dialog)
 
-var loadImage = function (url, alt) {
-  var dialogImage = dialog.querySelector('img')
+const loadImage = function (url, alt) {
+  let dialogImage = dialog.querySelector('img')
   dialogImage.src = url
   dialogImage.alt = alt
   dialogImage.onload = function () {
@@ -52,25 +49,26 @@ var loadImage = function (url, alt) {
   }
 }
 
+// if there is attachment add preview image (if not)
 var attachments = query('.attachments > table')
 var imageAttachments = attachments.filter(function (attachment) {
-  var name = attachment.querySelector('b').textContent.trim()
+  let name = attachment.querySelector('b').textContent.trim()
   return !!getImageMIME(name)
 })
 
 imageAttachments.forEach(function (attachment) {
-  var nameElem = attachment.querySelector('b')
-  var downloadElem = attachment.querySelector('b ~ a:last-of-type')
-  var viewElem = attachment.querySelector('a[target]')
-  var thumbnailElem = attachment.querySelector('[colspan="3"] > a')
+  let nameElem = attachment.querySelector('b')
+  let downloadElem = attachment.querySelector('b ~ a:last-of-type')
+  let viewElem = attachment.querySelector('a[target]')
+  let thumbnailElem = attachment.querySelector('[colspan="3"] > a')
 
   nameElem.classList.add('lycoris-filename')
 
-  var fileName = nameElem.textContent.trim()
+  let fileName = nameElem.textContent.trim()
 
-  if (!! viewElem && !!thumbnailElem) {
-    var imageURL = viewElem.href
-    var elems = [nameElem, viewElem, thumbnailElem]
+  if (!!viewElem && !!thumbnailElem) {
+    let imageURL = viewElem.href
+    let elems = [nameElem, viewElem, thumbnailElem]
     elems.forEach(function (elem) {
       elem.onclick = function (e) {
         e.preventDefault()
@@ -80,16 +78,16 @@ imageAttachments.forEach(function (attachment) {
   }
   else {
     nameElem.onclick = function () {
-      var url = downloadElem.href
-      var mime = getImageMIME(fileName)
+      let url = downloadElem.href
+      let mime = getImageMIME(fileName)
       request(url, { type: 'blob' }).then(function (response) {
         var blob = new Blob([response.body], { type: mime })
         return URL.createObjectURL(blob)
-      }).then(function (objURL) {
-        loadImage(objURL, fileName)
-      }).catch(function (e) {
-        console.error(e)
       })
+      .then(function (objURL) {
+        loadImage(objURL, fileName)
+      })
+      .catch(console.error)
     }
   }
 })
