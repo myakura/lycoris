@@ -10,10 +10,7 @@
   "content_scripts": [
     {
       "matches": ["https://bugs.chromium.org/*p/*/issues*"],
-      "js": [
-        "lycoris_utils.js",
-        "lycoris_preview.js"
-      ],
+      "js": ["lycoris_preview.js"],
       "css": ["lycoris_preview.css"]
     }
   ]

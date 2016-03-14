@@ -79,10 +79,9 @@ imageAttachments.forEach((attachment) => {
     nameElem.onclick = () => {
       let url = downloadElem.href
       let mime = getImageMIME(fileName)
-      request(url, { type: 'blob' }).then((response) => {
-        var blob = new Blob([response.body], { type: mime })
-        return URL.createObjectURL(blob)
-      })
+      fetch(url)
+      .then(response => response.blob())
+      .then(blob => URL.createObjectURL(blob))
       .then((objURL) => {
         loadImage(objURL, fileName)
       })
