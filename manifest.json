@@ -1,15 +1,15 @@
 {
   "manifest_version": 2,
   "name": "Lycoris",
-  "version": "0.3.4",
-  "description": "Enhance code.google.com.",
+  "version": "0.3.5",
+  "description": "Enhance Monorail.",
   "permissions": [
-    "*://code.google.com/*",
+    "https://bugs.chromium.org/*",
     "*://chromium.googlecode.com/*"
   ],
   "content_scripts": [
     {
-      "matches": ["*://code.google.com/*p/*/issues*"],
+      "matches": ["https://bugs.chromium.org/*p/*/issues*"],
       "js": [
         "lycoris_utils.js",
         "lycoris_preview.js"
