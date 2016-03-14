@@ -49,13 +49,13 @@ const loadImage = (url, alt) => {
 }
 
 // if there is attachment add preview image (if not)
-var attachments = Array.from(document.querySelectorAll('.attachments > table'))
-var imageAttachments = attachments.filter((attachment) => {
+let attachments = Array.from(document.querySelectorAll('.attachments > table'))
+let imageAttachments = attachments.filter(attachment => {
   let name = attachment.querySelector('b').textContent.trim()
   return !!getImageMIME(name)
 })
 
-imageAttachments.forEach((attachment) => {
+imageAttachments.forEach(attachment => {
   let nameElem = attachment.querySelector('b')
   let downloadElem = attachment.querySelector('b ~ a:last-of-type')
   let viewElem = attachment.querySelector('a[target]')
@@ -68,8 +68,8 @@ imageAttachments.forEach((attachment) => {
   if (!!viewElem && !!thumbnailElem) {
     let imageURL = viewElem.href
     let elems = [nameElem, viewElem, thumbnailElem]
-    elems.forEach((elem) => {
-      elem.onclick = (e) => {
+    elems.forEach(elem => {
+      elem.onclick = e => {
         e.preventDefault()
         loadImage(imageURL, fileName)
       }
@@ -82,7 +82,7 @@ imageAttachments.forEach((attachment) => {
       fetch(url)
       .then(response => response.blob())
       .then(blob => URL.createObjectURL(blob))
-      .then((objURL) => {
+      .then(objURL => {
         loadImage(objURL, fileName)
       })
       .catch(console.error)
