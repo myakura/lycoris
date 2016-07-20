@@ -80,7 +80,14 @@ imageAttachments.forEach(attachment => {
       let url = downloadElem.href
       let mime = getImageMIME(fileName)
       fetch(url)
-      .then(response => response.blob())
+      .then(response => {
+        if (response.ok) {
+          return response.blob()
+        }
+        else {
+          return Promise.reject(new Error(`${response.status}: ${response.statusText}`))
+        }
+      })
       .then(blob => URL.createObjectURL(blob))
       .then(objURL => {
         loadImage(objURL, fileName)
