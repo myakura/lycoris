@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Lycoris",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Enhance Monorail.",
   "permissions": [
     "https://bugs.chromium.org/*",

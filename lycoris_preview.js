@@ -42,7 +42,7 @@ const loadImage = (url, alt) => {
   let dialogImage = dialog.querySelector('img')
   dialogImage.src = url
   dialogImage.alt = alt
-  dialogImage.onload = function () {
+  dialogImage.onload = () => {
     URL.revokeObjectURL(this.src)
     dialog.showModal()
   }
